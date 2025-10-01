@@ -1,10 +1,7 @@
 from django.urls import path, include
-from .views import RegisterView, api_root
+from .views import RegisterView
 
 urlpatterns = [
     path("register/", RegisterView.as_view(), name="register"),
     path("api-auth/", include("rest_framework.urls")),
-
-    #Dummy view
-    path("/api/", api_root, name="api_root"),
 ]

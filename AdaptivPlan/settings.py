@@ -28,8 +28,8 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 AUTH_USER_MODEL = 'users.CustomUser'
-LOGIN_REDIRECT_URL = 'api_root'
-LOGOUT_REDIRECT_URL = 'api_root'
+LOGIN_REDIRECT_URL = 'register'
+LOGOUT_REDIRECT_URL = 'register'
 
 
 # Application definition
