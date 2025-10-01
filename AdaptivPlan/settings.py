@@ -28,8 +28,8 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 AUTH_USER_MODEL = 'users.CustomUser'
-LOGIN_REDIRECT_URL = 'register'
-LOGOUT_REDIRECT_URL = 'register'
+LOGIN_REDIRECT_URL = 'api/'
+LOGOUT_REDIRECT_URL = 'api/'
 
 
 # Application definition
@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'users',
+    'availability_slots',
 ]
 
 MIDDLEWARE = [
@@ -83,6 +84,10 @@ DATABASES = {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     }
+}
+
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": ["rest_framework.authentication.SessionAuthentication"]
 }
 
 
