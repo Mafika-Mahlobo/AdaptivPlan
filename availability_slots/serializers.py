@@ -4,4 +4,4 @@ from .models import AvailabilitySlots
 class AvailabilitySlotsSerializer(serializers.ModelSerializer):
     class Meta:
         model = AvailabilitySlots
-        fields = "__all__"
+        fields = ["id", "name", "start_time", "end_time", "week_days", "is_available"]
