@@ -1,4 +1,5 @@
 from rest_framework import serializers
+from django.core.exceptions import ValidationError as DjangoValidationError
 from .models import Task
 from availability_slots.models import AvailabilitySlots
 
@@ -13,3 +14,15 @@ class TaskSerializer(serializers.ModelSerializer):
     class Meta:
         model = Task
         fields = ["id", "title", "description", "slot"]
+
+    def validate(self, attrs):
+        user = self.context["request"].user
+        instance = Task(**attrs, user=user)
+
+        try:
+            instance.clean()
+
+        except DjangoValidationError as e:
+            raise serializers.ValidationError({"non_field_errors": e.messages})
+        
+        return attrs
