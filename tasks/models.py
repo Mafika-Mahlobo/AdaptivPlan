@@ -6,7 +6,7 @@ from availability_slots.models import AvailabilitySlots
 User = get_user_model()
 
 class Task(models.Model):
-    title = models.CharField(max_length=50)
+    title = models.CharField(max_length=50, unique=True)
     description = models.TextField(null=True, blank=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     slot = models.ForeignKey(AvailabilitySlots, 
@@ -15,9 +15,6 @@ class Task(models.Model):
     
     def clean(self):
         tasks = Task.objects.filter(user=self.user).exclude(id=self.id)
-
-        if tasks.filter(title__iexact=self.title.strip()).exclude(id=self.id).exists():
-            raise ValidationError("Error. You are trying to create a duplicate task!")
 
         for task in tasks:
 

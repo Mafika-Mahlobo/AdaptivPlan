@@ -15,7 +15,12 @@ class TaskSerializer(serializers.ModelSerializer):
         model = Task
         fields = ["id", "title", "description", "slot"]
 
+    def validate_title(self, value):
+        value = value.strip()
+        return value.capitalize()
+
     def validate(self, attrs):
+
         user = self.context["request"].user
         instance = Task(**attrs, user=user)
 
