@@ -8,10 +8,10 @@ User = get_user_model()
 class Task(models.Model):
     title = models.CharField(max_length=50, unique=True)
     description = models.TextField(null=True, blank=True)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="user")
     slot = models.ForeignKey(AvailabilitySlots, 
                              on_delete=models.SET_NULL, 
-                             null=True, blank=True, related_name="task")
+                             null=True, blank=True, related_name="slot")
     
     def clean(self):
         tasks = Task.objects.filter(user=self.user).exclude(id=self.id)

@@ -2,6 +2,7 @@ from rest_framework import viewsets
 from rest_framework.authentication import SessionAuthentication
 from rest_framework.permissions import IsAuthenticated
 from availability_slots.permissions import IsOwner
+from django.core.mail import send_mail
 from .models import Task
 from .serializers import TaskSerializer
 
@@ -14,4 +15,12 @@ class TasksAPIView(viewsets.ModelViewSet):
         return Task.objects.filter(user=self.request.user)
     
     def perform_create(self, serializer):
-        serializer.save(user=self.request.user)
+        task = serializer.save(user=self.request.user)
+
+        send_mail(
+            subject="Task creation success",
+            message= f"Hi {self.request.user.email},\n You task '{task.title}' has been successfully cerated.",
+            from_email='AdaptivPlan.gmail.com',
+            recipient_list=[self.request.user.email],
+            fail_silently=False
+        )

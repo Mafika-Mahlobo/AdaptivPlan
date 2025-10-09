@@ -1,4 +1,5 @@
 from django.db import models
+from zoneinfo import available_timezones
 from django.contrib.auth.models import AbstractUser, BaseUserManager
 
 
@@ -30,6 +31,9 @@ class CustomUser(AbstractUser):
 
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
+    time_zone = models.CharField(max_length=50,
+                                 choices=[(tz,tz) for tz in sorted(available_timezones())],
+                                 default="Africa/Johannesburg", blank=False, null=False)
 
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = ["first_name", "last_name"]
