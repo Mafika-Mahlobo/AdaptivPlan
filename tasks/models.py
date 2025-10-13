@@ -1,3 +1,7 @@
+"""
+Tasks model.
+"""
+
 from django.db import models
 from django.core.exceptions import ValidationError
 from django.contrib.auth import get_user_model
@@ -6,6 +10,9 @@ from availability_slots.models import AvailabilitySlots
 User = get_user_model()
 
 class Task(models.Model):
+    """
+    Task model attributes definition.
+    """
     title = models.CharField(max_length=50, unique=True)
     description = models.TextField(null=True, blank=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="user")
@@ -14,6 +21,9 @@ class Task(models.Model):
                              null=True, blank=True, related_name="slot")
     
     def clean(self):
+        """
+        clean method override to implement validations for POST and PUT in tasks.
+        """
         tasks = Task.objects.filter(user=self.user).exclude(id=self.id)
 
         for task in tasks:

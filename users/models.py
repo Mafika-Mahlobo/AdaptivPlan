@@ -1,9 +1,17 @@
+"""
+Users custom model.
+"""
+
 from django.db import models
 from zoneinfo import available_timezones
 from django.contrib.auth.models import AbstractUser, BaseUserManager
 
 
 class CustomUserManager(BaseUserManager):
+    """
+    Custom user manager.
+    """
+
     def create_user(self, email, password=None, **extra_fields):
         if not email:
             raise ValueError("Error: Email is required!")
@@ -26,6 +34,9 @@ class CustomUserManager(BaseUserManager):
         return self.create_user(email, password, **extra_fields)
 
 class CustomUser(AbstractUser):
+    """
+    Custom user model attributes definition.
+    """
     username = None
     email = models.EmailField(unique=True)
 
@@ -35,7 +46,8 @@ class CustomUser(AbstractUser):
                                  choices=[(tz,tz) for tz in sorted(available_timezones())],
                                  default="Africa/Johannesburg", blank=False, null=False)
 
-    USERNAME_FIELD = "email"
+
+    USERNAME_FIELD = "email" #set email login
     REQUIRED_FIELDS = ["first_name", "last_name"]
 
     objects = CustomUserManager()

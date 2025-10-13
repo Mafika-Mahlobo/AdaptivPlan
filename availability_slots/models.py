@@ -1,3 +1,7 @@
+"""
+Availability slots model.
+"""
+
 from django.db import models
 from django.core.exceptions import ValidationError
 from django.contrib.auth import get_user_model
@@ -5,6 +9,10 @@ from django.contrib.auth import get_user_model
 User = get_user_model()
 
 class AvailabilitySlots(models.Model):
+    """
+    Model attributes definition.
+    """
+
     SLOT_CHICES = [
         ("office", "Work / Office"),
         ("remote", "Work from home"),
@@ -20,7 +28,13 @@ class AvailabilitySlots(models.Model):
     is_available = models.BooleanField(default=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="availability_slot")
 
+
+
     def clean(self):
+        """
+        Clean method override for availability slot POST and PUT validations.
+        """
+
         slots = AvailabilitySlots.objects.filter(user=self.user).exclude(id=self.id)
 
         if self.start_time == self.end_time:

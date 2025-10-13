@@ -1,3 +1,7 @@
+"""
+A threaded task to run 'send_reminders' management command at regular intervals (3 min)
+"""
+
 from django.apps import AppConfig
 import threading
 import time

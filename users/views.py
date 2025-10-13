@@ -1,3 +1,7 @@
+"""
+User view to perform CRUD operation on user.
+"""
+
 from django.contrib.auth import get_user_model
 from rest_framework import generics
 from .serializers import UserSerializer

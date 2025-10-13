@@ -1,3 +1,7 @@
+"""
+A custom management command to send reminder emails.
+"""
+
 from django.core.management.base import BaseCommand
 from django.utils import timezone
 from datetime import timedelta
@@ -9,6 +13,10 @@ from django.core.cache import cache
 class Command(BaseCommand):
 
     def handle(self, *args, **kwargs):
+        """
+        handle method override iterate through tasks to send reminders based on the day of the week
+        , tasks start time, and current time (users chosen timezone)
+        """
 
         now_utc = timezone.now()
 
@@ -53,7 +61,7 @@ class Command(BaseCommand):
                 if not cache.get(cache_key):
                     send_mail(
                         subject="Your task in starting soon!",
-                        message=f"Hi {user.first_name},\n '{task.title}' starts at {slot.start_time}.",
+                        message=f"Hi {user.first_name},\n\n You task '{task.title}' starts at {slot.start_time}.",
                         from_email="AdaptivPlan.co.za",
                         recipient_list=[slot.user.email],
                         fail_silently=False,

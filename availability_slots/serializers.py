@@ -1,3 +1,7 @@
+"""
+Model serializer for Availability slots
+"""
+
 from rest_framework import serializers
 from .models import AvailabilitySlots
 from django.core.exceptions import ValidationError as DjangoValidationError
@@ -8,7 +12,12 @@ class AvailabilitySlotsSerializer(serializers.ModelSerializer):
         model = AvailabilitySlots
         fields = ["id", "name", "start_time", "end_time", "week_days", "is_available"]
 
+
     def validate(self, attrs):
+        """
+        Validate method override. Ensures that users cannot view or edit someone else's Availability slot.
+        """
+
         user = self.context["request"].user
         instance = AvailabilitySlots(**attrs, user=user)
 

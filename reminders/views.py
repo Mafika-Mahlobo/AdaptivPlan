@@ -1,3 +1,7 @@
+"""
+Reminders View for listing upcomming tasks.
+"""
+
 from rest_framework import viewsets
 from rest_framework.authentication import SessionAuthentication
 from rest_framework.permissions import IsAuthenticated
@@ -12,6 +16,12 @@ class RemindersAPIView(viewsets.ReadOnlyModelViewSet):
     serializer_class = RemindersSerializer
 
     def get_queryset(self):
+        """
+        get_queryset method override to loop throgh users cheduled tasks and display upcomming tasks
+
+        returns:
+            Sheduled tasks (current day)
+        """
         user = self.request.user
         now = timezone.localtime(timezone.now()).time()
         today = timezone.localtime(timezone.now()).isoweekday()

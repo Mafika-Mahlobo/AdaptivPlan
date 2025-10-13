@@ -1,3 +1,7 @@
+"""
+Task View perfoms CRUD operation on tasks.
+"""
+
 from rest_framework import viewsets
 from rest_framework.authentication import SessionAuthentication
 from rest_framework.permissions import IsAuthenticated
@@ -17,9 +21,10 @@ class TasksAPIView(viewsets.ModelViewSet):
     def perform_create(self, serializer):
         task = serializer.save(user=self.request.user)
 
+        #send email after tasks creation.
         send_mail(
             subject="Task creation success",
-            message= f"Hi {self.request.user.email},\n You task '{task.title}' has been successfully cerated.",
+            message= f"Hi {self.request.user.email},\n\n Your task '{task.title}' has been successfully created.",
             from_email='AdaptivPlan.gmail.com',
             recipient_list=[self.request.user.email],
             fail_silently=False
