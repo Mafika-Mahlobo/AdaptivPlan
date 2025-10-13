@@ -13,7 +13,7 @@ Users can then create tasks and assign them to these slots. Tasks can be easily 
 - View scheduled tasks
 - Automatic email reminders
 
-# Dependacies
+# Dependancies
 
 - Django 5.2.6
 - Django Rest Framework (DRF) 3.16.1
@@ -49,8 +49,9 @@ In the root folder (*where manage.py is located*)
 python manage.py runserver
 ```
 
-- It running as expected when you see this:
-[App screenshot](demo.PNG)
+- It's running as expected when you see this:
+
+![App screenshot](demo.PNG)
 
 - Open AdaptivPlan here:
 ```
