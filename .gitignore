@@ -206,3 +206,8 @@ cython_debug/
 marimo/_static/
 marimo/_lsp/
 __marimo__/
+
+# Migrations
+availability_slots/migrations/000*
+tasks/migrations/000*
+users/migrations/000*

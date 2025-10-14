@@ -41,6 +41,16 @@ Make sure python and pip are installed in your machine.
 pip install -r requirements.txt
 ```
 
+- Run DB migrations
+
+```
+python manage.py makemigrations
+```
+**and**
+```
+python manage.py migrate
+```
+
 # Usage
 
 - Run the application
