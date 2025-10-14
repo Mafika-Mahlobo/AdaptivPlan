@@ -41,12 +41,20 @@ Make sure python and pip are installed in your machine.
 pip install -r requirements.txt
 ```
 
+- Create .env
+
+*create a file with the name .env in the current directory and add you credentials*
+```
+EMAIL_HOST_USER=your email address
+EMAIL_HOST_PASSWORD=Gmail app password. **not your login passaword** (go to your gmail settings to create)
+```
+
 - Run DB migrations
 
 ```
 python manage.py makemigrations
 ```
-**and**
+*and*
 ```
 python manage.py migrate
 ```
