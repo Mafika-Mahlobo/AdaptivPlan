@@ -34,7 +34,11 @@ SECRET_KEY = 'django-insecure-8etssa*fs#@((2d=_2saff$e_wrhxbus+#c+sb17tactv1%&3a
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'adaptivplan-production.up.railway.app',
+    'localhost',
+    '127.0.0.1'
+]
 
 AUTH_USER_MODEL = 'users.CustomUser'
 LOGIN_REDIRECT_URL = 'api/'
