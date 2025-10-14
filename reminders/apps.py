@@ -6,6 +6,7 @@ from django.apps import AppConfig
 import threading
 import time
 from django.core.management import call_command
+import sys
 
 
 class RemindersConfig(AppConfig):
@@ -13,11 +14,12 @@ class RemindersConfig(AppConfig):
     name = 'reminders'
 
     def ready(self):
-        def schedule_reminders():
-            while True:
-                call_command("send_reminders")
-                time.sleep(300)
+        if any(cmd in sys.argv for cmd in ["runserver", "gunicorn", "uwsqi"]):
+            def schedule_reminders():
+                while True:
+                    call_command("send_reminders")
+                    time.sleep(300)
         
-        thread = threading.Thread(target=schedule_reminders, daemon=True)
-        thread.start()
+            thread = threading.Thread(target=schedule_reminders, daemon=True)
+            thread.start()
 
